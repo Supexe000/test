@@ -7,50 +7,46 @@
 body {
     background-color: #000;
     /* Cinema black */
-    overflow-x: hidden;
-    /* Initially hide scrollbar during intro autoplay if desired, 
-       but we will control 'overflow' via JS classes generally. 
-       For now, let's keep it standard but hide scrollbar if meaningful. */
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE/Edge */
+    overflow: hidden;
+    /* Prevent scrolling until experience starts */
+    width: 100vw;
+    height: 100vh;
 }
 
-/* Hide scrollbar for Chrome/Safari/Opera */
+/* Hide scrollbar universally for a cinematic feel */
 body::-webkit-scrollbar {
     display: none;
 }
 
-/* The scroll container defines the total scrollable height. 
-   We'll toggle 'overflow-y: hidden' on body when we want to lock scrolling. */
-body.no-scroll {
-    overflow-y: hidden;
+body {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
+/* Scroll container used for determining scroll length in Manual Mode */
 #scroll-container {
-    position: relative;
-    /* Changed from absolute to relative to ensure body has height */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 10;
     pointer-events: none;
-    /* Let clicks pass through to canvas if needed, or handle events on window */
+    /* Let interactions pass to window/canvas handlers */
 }
 
 #scroll-spacer {
     height: 600vh;
-    /* Length of the scroll experience */
+    /* Determines the scrub speed/length in manual mode */
 }
 
 #video-canvas {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     z-index: 1;
-    /* Behind scroll container */
 }
